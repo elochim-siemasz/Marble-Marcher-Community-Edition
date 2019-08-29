@@ -113,7 +113,7 @@ public:
   void ResetCheats();
   void Synchronize();
 
-  void UpdateMarble(float dx=0.0f, float dy=0.0f);
+  void UpdateMarble(float dx=0.0f, float dy=0.0f, bool jump=false);
   void UpdateCamera(float dx=0.0f, float dy=0.0f, float dz=0.0f, bool speedup=false);
 
   void SnapCamera();

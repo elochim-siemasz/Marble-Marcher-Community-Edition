@@ -344,7 +344,7 @@ void Scene::UpdateCamera(float dx, float dy, float dz, bool speedup) {
   }
 }
 
-void Scene::UpdateMarble(float dx, float dy) {
+void Scene::UpdateMarble(float dx, float dy, bool jump) {
   //Ignore other modes
   if (cam_mode != MARBLE) {
     return;
@@ -396,9 +396,22 @@ void Scene::UpdateMarble(float dx, float dy) {
     const float sn = std::sin(cam_look_x);
     const Eigen::Vector3f v(dx*cs - dy*sn, 0.0f, -dy*cs - dx*sn);
     marble_vel += (marble_mat * v) * f;
+	auto a = marble_vel.x();
+
+	//Jump
+	if (onGround && jump) {
+		const float force = 0.005f;
+		if (level_copy.planet) {
+			marble_vel += marble_pos.normalized() * force;
+		}
+		else {
+			marble_vel.y() += force;
+		}
+	}
 
     //Apply friction
     marble_vel *= (onGround ? ground_friction : air_friction);
+
   }
 
   //Update animated fractals

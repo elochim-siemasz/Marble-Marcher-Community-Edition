@@ -562,9 +562,11 @@ int main(int argc, char *argv[]) {
       const float force_ud =
         (all_keys[sf::Keyboard::Down] || all_keys[sf::Keyboard::S] ? -1.0f : 0.0f) +
         (all_keys[sf::Keyboard::Up] || all_keys[sf::Keyboard::W] ? 1.0f : 0.0f);
+	  const float jump =
+		  (all_keys[sf::Keyboard::Space] || all_keys[sf::Keyboard::S] ? true : false);
 
 	  //Apply forces to marble and camera
-	  scene.UpdateMarble(force_lr, force_ud);
+	  scene.UpdateMarble(force_lr, force_ud, jump);
 
 
 	  scene.free_camera_speed *= 1 + mouse_wheel * 0.05;
